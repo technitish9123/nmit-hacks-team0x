@@ -8,7 +8,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="fixed flex  h-20 w-full flex-row items-center justify-between pt-8">
+      <div className="fixed flex  h-20 w-full flex-row items-center justify-between pt-8" style={{zIndex:"50"}}>
         <div className="ml-20 flex items-center justify-center gap-x-16">
           <NavLink
             to="/"
@@ -44,7 +44,7 @@ function Navbar() {
             + Connect Wallet
           </div>
         ) : (
-          <div className="mr-24 flex w-1/3 items-center justify-center text-white">
+          <div className="mr-24 flex w-1/3 items-center justify-center text-dark-gray-100 font-medium">
             Hey,{" "}
             {`${String(account.currentAccount).slice(0, 9)}...${String(
               account.currentAccount

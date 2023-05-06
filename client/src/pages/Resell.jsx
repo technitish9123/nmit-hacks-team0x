@@ -7,6 +7,8 @@ import {
   resell,
 } from '../contexts/useContract/readContract';
 import Web3Context from '../contexts';
+import Illustration from "../assets/illustration.svg"
+
 
 function Resell() {
   const { Contract, account } = useContext(Web3Context);
@@ -47,11 +49,14 @@ function Resell() {
 
   return (
     <>
-      <div className="w-screen h-screen">
+      <div className="w-screen h-screen" style={{backgroundColor:" #A7C6D7"}}>
         <Navbar />
-        <div className="w-full h-full bg-new-secondary flex flex-col justify-center items-center">
-          <div className="w-1/3 h-4/6 flex justify-start items-center flex-col bg-secondary-3 rounded-lg border-2 border-black">
-            <div className="text-2xl mt-4 font-bold">
+
+        <img src={Illustration} alt='Illustration' className='fixed top-0 left-0' style={{zIndex:"0"}}/>
+        <img src={Illustration} alt='Illustration' className='fixed bottom-0 right-0' style={{zIndex:"0", rotate:"-90"}}/>
+        <div className="w-full h-full  flex flex-col justify-center items-center" >
+          <div className="w-1/3 h-4/6 flex justify-start items-center flex-col  rounded-lg border-2 border-light-gray-50">
+            <div className="text-2xl mt-4 font-bold py-4">
               Warranty #{warrantyID}
             </div>
             <div className="flex flex-col justify-evenly items-center w-full h-3/4">
@@ -99,7 +104,7 @@ function Resell() {
           </div>
           <NavLink
             to={`/resell/${data.tokenId}`}
-            className="w-1/3 h-10 flex justify-center items-center bg-new hover:bg-tertiary hover:text-black bottom-2 border-black rounded-xl text-white m-2"
+            className="w-1/3 h-10 mt-5 flex justify-center items-center bg-United-Nations-Blue hover:bg-limited-sky  bottom-2 border-black rounded-xl text-white m-2"
           >
             Resell
           </NavLink>

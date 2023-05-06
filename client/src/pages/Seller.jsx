@@ -11,7 +11,7 @@ function Navbutton(props) {
   return (
     <a
       href={props.link}
-      className="text-white hover:text-black text-xl w-5/6 h-fit py-4 ml-11 hover:bg-new-secondary active:bg-new-secondary text-center rounded-l-xl"
+      className=" hover:text-black text-xl w-5/6 h-fit py-4 ml-11 font-medium hover:bg-new-secondary active:bg-new-secondary text-center rounded-l-xl"
     >
       {props.content}
     </a>
@@ -53,7 +53,7 @@ function ActiveWarranty(props) {
     <>
       <NavLink
         to={`/warranty/${props.id}`}
-        className="bg-secondary-4 hover:bg-tertiary border-2 hover:border-black mx-16 h-14 flex justify-between items-center rounded-full text-xl my-2"
+        className="bg-secondary-4 hover:bg-tertiary border-1 hover:border-black mx-16 h-14 flex justify-between items-center rounded-lg text-xl my-2"
       >
         <div className="flex justify-center items-center pl-5">
           <img className="w-10 h-10 rounded-full" src={props.img} />
@@ -105,24 +105,27 @@ function Seller() {
 
   return (
     <>
-      <div className="flex w-screen h-fit mb-10 min-h-screen bg-new overflow-x-hidden">
+      <div className="flex w-screen h-fit mb-10 min-h-screen  overflow-x-hidden text-Independence"
+      style={{backgroundColor:"#A7C6D7"}}
+      >
         <div className="sidebar w-1/6 h-full flex flex-col items-center">
           <NavLink
             to="/"
-            className="text-white text-2xl border-b-2 p-4 w-full h-fit flex justify-center items-center font-bold"
+            className=" text-2xl border-b-2 p-4 w-full h-fit flex justify-center items-center font-bold"
           >
-            NFTDocket
+            E-Warranty
           </NavLink>
           <NavLink
             to={`/createnft/${account.currentAccount}`}
-            className="text-white hover:text-black text-xl w-5/6 h-fit py-4 mt-4 ml-11 hover:bg-new-secondary active:bg-new-secondary text-center rounded-l-xl"
+            className=" hover:text-black text-xl w-5/6 h-fit py-4 mt-4 ml-11 hover:bg-new-secondary active:bg-new-secondary text-center rounded-l-xl"
           >
             Create Warranty
           </NavLink>
           <Navbutton link="#active" content="Active Warranties" />
           <Navbutton link="#pending" content="Pending Warranties" />
           <Navbutton link="#expired" content="Expired Warranties" />
-          <div className="w-5/6 h-2/6 bg-new-secondary my-10 mb-50 flex flex-col justify-center items-center rounded-2xl">
+          <div className="w-5/6 h-2/6  my-10 mb-50 flex flex-col justify-center items-center rounded-2xl"
+           style={{ backgroundColor: '#F6FBF9' }}>
             <img
               className="w-1/2 mt-3 rounded-full"
               src="https://res.cloudinary.com/doybtqm8h/image/upload/v1659257792/profile_rlizwd.png"
@@ -132,20 +135,26 @@ function Seller() {
             </div>
           </div>
         </div>
-        <div className="main w-5/6 h-fit min-h-screen bg-new-secondary">
-          <div className="flex justify-between bg-new items-center h-fit py-4">
-            <span className="text-2xl ml-12 cursor-default text-white">
+
+
+        <div className="main w-5/6 h-fit min-h-screen bg-hash-light" 
+       
+        >
+          <div className="flex justify-between  items-center h-fit py-4"
+          style={{backgroundColor:""}}
+          >
+            <span className="text-2xl ml-12 cursor-default text-Independence font-semibold">
               Dashboard
             </span>
             {account.currentAccount == null ? (
               <div
-                className="cursor-pointer text-white bg-secondary-2 mr-20 w-40 h-10 text-center rounded-xl pt-2"
+                className="cursor-pointer text-white  mr-20 w-40 h-10 text-center rounded-xl pt-2"
                 onClick={connectWallet}
               >
                 + Connect Wallet
               </div>
             ) : (
-              <div className="mr-20 text-white">
+              <div className="mr-20 text-Independence">
                 Hey,{' '}
                 {`${String(account.currentAccount).slice(0, 9)}...${String(
                   account.currentAccount
@@ -155,17 +164,14 @@ function Seller() {
           </div>
           <div className="w-full h-1/6 flex  items-center justify-start ml-20 text-xl font-bold my-4">
             Seller ID: {sellerI}
-            {/* <button className='w-1/4 bg-secondary-3'>Active Warranties: 23</button>
-            <WarrantyCount head="Active Warranties" count="23" />
-            <WarrantyCount head="Pending Warranties" count="23" />
-            <WarrantyCount head="Expired Warranties" count="23" /> */}
+      
           </div>
           <div id="pending">
             <div className="text-xl pl-12 mt-10 mb-5 flex justify-evenly items-baseline">
               <div className="w-48 font-medium">Pending Warranty</div>
               <div className="w-5/6 h-px bg-black mr-20"></div>
             </div>
-            <div className="text-xl flex justify-between border-2 border-black items-center bg-secondary-3 mx-16 h-14 rounded-full my-2 px-7">
+            <div className="text-xl flex justify-between border-2 border-black items-center bg-blue-200 mx-16 h-14 rounded-full my-2 px-7">
               <span className="font-bold">Customer</span>
               <span className="font-bold">Status</span>
               <span className="font-bold">Token Id</span>
@@ -184,7 +190,6 @@ function Seller() {
                       imageURI,
                       tokenId,
                     } = obj;
-                    // console.log(tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/"))
 
                     return (
                       <PendingWarranty
@@ -220,9 +225,6 @@ function Seller() {
                   .map((obj) => {
                     const {
                       expiry,
-                      status,
-                      creationTime,
-                      productId,
                       tokenId,
                       buyers,
                       imageURI,
