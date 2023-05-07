@@ -59,10 +59,11 @@ function Warranty() {
 
   return (
     <>
-      <div className="w-screen h-screen">
+       <div className="w-screen h-screen  bg-hash-light flex text-Independence" >
         <Navbar />
-        <div className="w-full h-full bg-new-secondary flex flex-col justify-center items-center">
-          <div className="w-1/3 h-4/6 flex justify-start items-center flex-col bg-secondary-3 rounded-lg border-2 border-black">
+        <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="w-2/5 h-3/5 flex justify-start items-center flex-col bg- rounded-lg border-2 border-light-gray-50 shadow-md">
+
             <div className="text-2xl mt-4 font-bold">
               Warranty #{warrantyID}
             </div>
@@ -97,7 +98,7 @@ function Warranty() {
           </div>
           {data && data.status == 0 ? (
             <button
-              className="w-1/3 h-10 bg-new hover:bg-tertiary hover:text-black bottom-2 border-black rounded-xl text-white m-2"
+            className="w-1/3 h-10 mt-10 flex justify-center items-center bg-United-Nations-Blue hover:bg-gray-400  bottom-2 border-black rounded-xl text-white m-2"
               onClick={verifying}
             >
               Verify Ownership

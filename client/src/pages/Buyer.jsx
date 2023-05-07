@@ -1,94 +1,108 @@
 /* eslint-disable */
-import React, { useContext, useEffect, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
-import Web3Context from '../contexts';
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import Web3Context from "../contexts";
 import {
   buyerDetails,
   getWarrantyDetails,
-} from '../contexts/useContract/readContract';
+} from "../contexts/useContract/readContract";
 
-function Navbutton(props) {
-  return (
-    <a
-      href={props.link}
-      className="text-white hover:text-black text-lg w-5/6 h-fit py-4 mt-4 ml-11 hover:bg-new-secondary active:bg-new-secondary text-center pr-2 rounded-l-xl"
-    >
-      {props.content}
-    </a>
-  );
-}
+import logo from "../assets/logo.svg";
+import activeWarrantfyLogo from "../assets/active-warranty.svg";
+import pendingWarrantfyLogo from "../assets/p-w.svg";
+import expiryWarrantfyLogo from "../assets/e-w.svg";
 
-// count the number of warranties
-function WarrantyCount(props) {
-  return (
-    <>
-      <div className="w-1/4 cursor-default h-10 border-2 border-black bg-table-header flex justify-center items-center rounded-full">
-        {props.head}: {props.count}
-      </div>
-    </>
-  );
-}
-
-// function to display pending warranty requests
-function PendingWarranty(props) {
-  return (
-    <>
-      <NavLink
-        to={`/Approve/${props.id}`}
-        className="bg-table-data border-2 hover:border-black mx-16 h-14 flex justify-between items-center rounded-full text-xl my-2"
+const Seller = () => {
+  function Navbutton(props) {
+    return (
+      <a
+        href={props.link}
+        className={` ${
+          props.link === "#active" ? "bg-light-gray-100" : "bg-light-gray-25"
+        } h-fit  active:bg-light-gray-200 mr-3   mt-4 flex w-5/6 justify-center gap-x-4 rounded-xl py-4 text-center text-lg   font-semibold text-Independence  hover:bg-light-gray-100 hover:text-black`}
+        onClick={() => {
+          setSelectedTab(props.link);
+        }}
       >
-        <div className="flex justify-center items-center pl-5">
-          <img className="w-10 h-10 rounded-full" src={props.img} />
-          <span className="px-3">{props.name}</span>
-        </div>
-        <span className="pr-12">{props.status}</span>
-        <span className="pr-5">#{props.id}</span>
-      </NavLink>
-    </>
-  );
-}
+        <span>
+          <img src={props?.img} alt={props.content} />
+        </span>
+        {props.content}
+      </a>
+    );
+  }
 
-// function to display active warranty requests
-function ActiveWarranty(props) {
-  return (
-    <>
-      <NavLink
-        to={`/warranty/${props.id}`}
-        className="bg-table-data border-2 hover:border-black mx-16 h-14 flex justify-between items-center rounded-full text-xl my-2"
-      >
-        <div className="flex justify-center items-center pl-5">
-          <img className="w-10 h-10 rounded-full" src={props.img} />
-          <span className="px-3">{props.name}</span>
+  // count the number of warranties
+  function WarrantyCount(props) {
+    return (
+      <>
+        <div className="flex h-10 w-1/4 cursor-default items-center justify-center rounded-full border-2 border-black bg-table-header">
+          {props.head}: {props.count}
         </div>
-        <span className="pr-12">{props.status}</span>
-        <span className="pr-12">{props.expiry}</span>
-        <span className="pr-5">#{props.id}</span>
-      </NavLink>
-    </>
-  );
-}
+      </>
+    );
+  }
 
-// function to display expired warranty requests
-function ExpiredWarranty(props) {
-  return (
-    <>
-      <NavLink
-        to={`/warranty/${props.id}`}
-        className="bg-table-data border-2 hover:border-black mx-16 h-14 flex justify-between items-center rounded-full text-xl my-2"
-      >
-        <div className="flex justify-center items-center pl-5">
-          <img className="w-10 h-10 rounded-full" src={props.img} />
-          <span className="px-3">{props.name}</span>
-        </div>
-        <span className="pr-12">{props.status}</span>
-        <span className="pr-5">#{props.id}</span>
-      </NavLink>
-    </>
-  );
-}
+  // function to display pending warranty requests
+  function PendingWarranty(props) {
+    return (
+      <>
+        <NavLink
+          to={`/Approve/${props.id}`}
+          className="mx-4 my-2 flex h-14 items-center justify-between border-b-2  py-2  text-xl hover:bg-light-gray-100"
+        >
+          <div className="flex items-center justify-center pl-5">
+            <img className="h-10 w-10 rounded-full" src={props.img} />
+            <span className="px-3">{props.name}</span>
+          </div>
+          <span className="pr-12">{props.status}</span>
+          <span className="pr-5">#{props.id}</span>
+        </NavLink>
+      </>
+    );
+  }
 
-// main
-function Seller() {
+  // function to display active warranty requests
+  function ActiveWarranty(props) {
+    return (
+      <>
+        <NavLink
+          to={`/warranty/${props.id}`}
+          className="mx-4 my-2 flex h-14 items-center justify-between border-b-2  py-2  text-xl hover:bg-light-gray-100"
+          >
+          <div className="flex items-center justify-center pl-5">
+            <img className="h-10 w-10 rounded-full" src={props.img} />
+            <span className="px-3">{props.name}</span>
+          </div>
+          <span className="pr-12">{props.status}</span>
+          <span className="pr-12">{props.expiry}</span>
+          <span className="pr-5">#{props.id}</span>
+        </NavLink>
+      </>
+    );
+  }
+
+  // function to display expired warranty requests
+  function ExpiredWarranty(props) {
+    return (
+      <>
+        <NavLink
+          to={`/warranty/${props.id}`}
+          className="mx-4 my-2 flex h-14 items-center justify-between border-b-2  py-2  text-xl hover:bg-light-gray-100"
+        >
+          <div className="flex items-center justify-center pl-5">
+            <img className="h-10 w-10 rounded-full" src={props.img} />
+            <span className="px-3">{props.name}</span>
+          </div>
+          <span className="pr-12">{props.status}</span>
+          <span className="pr-5">#{props.id}</span>
+        </NavLink>
+      </>
+    );
+  }
+
+  // main
+
   const { connectWallet, account, Contract } = useContext(Web3Context);
   const { add } = useParams();
   const [nfts, setNfts] = useState([]);
@@ -104,190 +118,221 @@ function Seller() {
     setNfts(res);
   };
 
+  const [selectedTab, setSelectedTab] = useState("#active");
+  console.log(selectedTab);
+
   return (
     <>
-      <div className="flex w-screen h-fit min-h-screen bg-new overflow-x-hidden mb-10">
-        <div className="sidebar w-1/6 h-full flex flex-col items-end ">
+      <div className="h-fit mb-10 flex min-h-screen w-screen overflow-x-hidden bg-hash-light">
+        <div className="sidebar flex h-full w-1/6 flex-col items-center border-r-1 shadow-md ">
           <NavLink
             to="/"
-            className="text-white text-2xl border-b-2 p-4 w-full h-fit flex justify-center items-center font-bold"
+            className="h-fit flex w-full items-center justify-center gap-x-4 border-b-2  bg-hash-light text-xl font-bold text-Independence"
           >
-            ewarranty
-          </NavLink>
-
-          <Navbutton link="#active" content="Active Warranties" />
-          <Navbutton link="#pending" content="Pending Warranties" />
-          <Navbutton link="#expired" content="Expired Warranties" />
-          <div className="w-5/6 h-2/6 bg-new-secondary my-20 flex flex-col justify-center items-center rounded-2xl">
-            <img
-              className="w-1/2 mt-2 rounded-full"
-              src="https://res.cloudinary.com/doybtqm8h/image/upload/v1659257792/profile_rlizwd.png"
-            />
-            <div className="text-xl mb-2 text-center font-semibold mt-2">
-              Your Warranty Logs
-            </div>
-          </div>
-        </div>
-        <div className="main w-5/6 h-fit min-h-screen bg-buyer-background">
-          <div className="flex justify-between bg-new items-center h-fit py-4">
-            <span className="text-2xl ml-12 cursor-default text-white">
-              My Warranties
+            <span>
+              <img src={logo} alt="logo" width={30} />
             </span>
-            {account.currentAccount == null ? (
-              <div
-                className="cursor-pointer text-white bg-secondary-2 mr-20 w-40 h-10 text-center rounded-xl pt-2"
-                onClick={connectWallet}
+            <span className="px-2 py-5  text-xl font-semibold">eWarranty</span>
+          </NavLink>{" "}
+          <Navbutton
+            link="#active"
+            content="Active Warranties"
+            img={activeWarrantfyLogo}
+          />
+          <Navbutton
+            link="#pending"
+            content="Pending Warranties"
+            img={pendingWarrantfyLogo}
+          />{" "}
+          <Navbutton
+            link="#expired"
+            content="Expired Warranties"
+            img={expiryWarrantfyLogo}
+          />
+        </div>
+
+        <div className="main h-fit min-h-screen w-5/6  ">
+          <div className=" ml-4 shadow-md">
+            <div className="h-fit flex items-center justify-between bg-hash-light py-4 text-Independence">
+              <span className="cursor-default  pl-12   text-4xl font-semibold ">
+                eWarranty Management
+              </span>
+              {account.currentAccount == null ? (
+                <div
+                  className="mr-20 h-10 w-40 cursor-pointer rounded-xl bg-secondary-2 pt-2 text-center text-white"
+                  onClick={connectWallet}
+                >
+                  + Connect Wallet
+                </div>
+              ) : (
+                <div className="mr-20">
+                  Hey,{" "}
+                  {`${String(account.currentAccount).slice(0, 9)}...${String(
+                    account.currentAccount
+                  ).slice(String(account.currentAccount).length - 9)}`}
+                </div>
+              )}{" "}
+            </div>
+
+            <div className="ml-8 flex items-center justify-start gap-x-9 px-2 py-2 pt-2 text-xl font-medium text-gray-100">
+              <button
+                className={`w-20   ${
+                  selectedTab === "#active"
+                    ? "border-United-Nations-Blue  border-b-2 text-United-Nations-Blue"
+                    : ""
+                }`}
               >
-                + Connect Wallet
+                Active
+              </button>
+              <button
+                className={`w-20   ${
+                  selectedTab === "#pending"
+                    ? "border-United-Nations-Blue  border-b-2 text-United-Nations-Blue"
+                    : ""
+                }`}
+              >
+                Pending{" "}
+              </button>
+              <button
+                className={`w-20  ${
+                  selectedTab === "#expired"?"border-United-Nations-Blue  border-b-2 text-United-Nations-Blue"
+                    : ""
+                }`}
+              >
+                {" "}
+                Expired{" "}
+              </button>
+            </div>
+          </div>
+
+          {selectedTab === "#pending" ? (
+            <div id="pending">
+             
+              <div className="border-gray-25  my-2 ml-4 flex h-14 items-center justify-between border-b-1 px-8  text-xl font-medium text-gray-100 ">
+                <span className="">Your Wallet</span>
+                <span className="">Status</span>
+                <span className="">Token Id</span>
               </div>
-            ) : (
-              <div className="mr-20 text-white">
-                Hey,{' '}
-                {`${String(account.currentAccount).slice(0, 9)}...${String(
-                  account.currentAccount
-                ).slice(String(account.currentAccount).length - 9)}`}
+              <div className="flex flex-col justify-evenly">
+                {nfts.length &&
+                  nfts
+                    .filter((res) => res.status == 0 || res.status == 1)
+                    .map((obj) => {
+                      const {
+                        expiry,
+                        status,
+                        creationTime,
+                        productId,
+                        buyers,
+                        imageURI,
+                        tokenId,
+                      } = obj;
+                      // console.log(tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/"))
+
+                      return (
+                        <PendingWarranty
+                          img={imageURI}
+                          name={`${String(buyers[buyers.length - 1]).slice(
+                            0,
+                            5
+                          )}...${String(buyers[buyers.length - 1]).slice(
+                            String(buyers[buyers.length - 1]).length - 5
+                          )}`}
+                          status="Pending"
+                          id={tokenId}
+                        />
+                      );
+                    })}
               </div>
-            )}{' '}
-          </div>
-          {/* <div className="w-full h-1/6 flex  items-center justify-evenly my-4">
-            <button className='w-1/4 bg-secondary-3'>Active Warranties: 23</button>
-            <WarrantyCount head="Active Warranties" count="23" />
-            <WarrantyCount head="Pending Warranties" count="23" />
-            <WarrantyCount head="Expired Warranties" count="23" />
-          </div> */}
-          <div id="pending">
-            <div className="text-xl pl-12 mt-10 mb-5 flex justify-evenly items-baseline">
-              <div className="w-48 font-medium">Pending Warranty</div>
-              <div className="w-5/6 h-px bg-black mr-20"></div>
             </div>
-            <div className="text-xl flex justify-between border-2 border-black items-center bg-table-header mx-16 h-14 rounded-full my-2 px-7">
-              <span className="font-bold">Your Wallet</span>
-              <span className="font-bold">Status</span>
-              <span className="font-bold">Token Id</span>
-            </div>
-            <div className="flex flex-col justify-evenly">
-              {nfts.length &&
-                nfts
-                  .filter((res) => res.status == 0 || res.status == 1)
-                  .map((obj) => {
-                    const {
-                      expiry,
-                      status,
-                      creationTime,
-                      productId,
-                      buyers,
-                      imageURI,
-                      tokenId,
-                    } = obj;
-                    // console.log(tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/"))
+          ) : selectedTab === "#active" ? (
+            <div id="active">
+             
+              <div className="border-gray-25  my-2 ml-4 flex h-14 items-center justify-between border-b-1 px-8  text-xl font-medium text-gray-100 ">
+                <span className="">Your Wallet</span>
+                <span className="">Status</span>
+                <span className="">Expiry Date</span>
+                <span className="">Token Id</span>
+              </div>
+              <div className="flex flex-col justify-evenly">
+                {nfts.length &&
+                  nfts
+                    .filter((res) => res.status == 2)
+                    .map((obj) => {
+                      const {
+                        expiry,
+                        status,
+                        creationTime,
+                        productId,
+                        tokenId,
+                        buyers,
+                        imageURI,
+                      } = obj;
+                      //const date = new Date(expiry*1000);
+                      var date = new Date(expiry * 1000);
 
-                    return (
-                      <PendingWarranty
-                        img={imageURI}
-                        name={`${String(buyers[buyers.length - 1]).slice(
-                          0,
-                          5
-                        )}...${String(buyers[buyers.length - 1]).slice(
-                          String(buyers[buyers.length - 1]).length - 5
-                        )}`}
-                        status="Pending"
-                        id={tokenId}
-                      />
-                    );
-                  })}
+                      return (
+                        <ActiveWarranty
+                          img={imageURI}
+                          name={`${String(buyers[buyers.length - 1]).slice(
+                            0,
+                            5
+                          )}...${String(buyers[buyers.length - 1]).slice(
+                            String(buyers[buyers.length - 1]).length - 5
+                          )}`}
+                          status="Active"
+                          id={tokenId}
+                          expiry={String(date).slice(4, 25)}
+                        />
+                      );
+                    })}
+              </div>
             </div>
-          </div>
-          <div id="active">
-            <div className="text-xl pl-12 mt-10 mb-5 flex justify-evenly items-baseline">
-              <div className="w-40 font-medium">Active Warranty</div>
-              <div className="w-5/6 h-px bg-black mr-20"></div>
-            </div>
-            <div className="text-xl flex justify-between items-center border-2 border-black bg-table-header mx-16 h-14 rounded-full my-2 px-7">
-              <span className="font-bold">Your Wallet</span>
-              <span className="font-bold">Status</span>
-              <span className="font-bold">Expiry Date</span>
-              <span className="font-bold">Token Id</span>
-            </div>
-            <div className="flex flex-col justify-evenly">
-              {nfts.length &&
-                nfts
-                  .filter((res) => res.status == 2)
-                  .map((obj) => {
-                    const {
-                      expiry,
-                      status,
-                      creationTime,
-                      productId,
-                      tokenId,
-                      buyers,
-                      imageURI,
-                    } = obj;
-                    //const date = new Date(expiry*1000);
-                    var date = new Date(expiry * 1000);
+          ) : (
+            <div id="expired">
+             
+              <div className="border-gray-25  my-2 ml-4 flex h-14 items-center justify-between border-b-1 px-8  text-xl font-medium text-gray-100 ">
+                <span className="">Your Wallet</span>
+                <span className="">Status</span>
+                <span className="">Token Id</span>
+              </div>
 
-                    return (
-                      <ActiveWarranty
-                        img={imageURI}
-                        name={`${String(buyers[buyers.length - 1]).slice(
-                          0,
-                          5
-                        )}...${String(buyers[buyers.length - 1]).slice(
-                          String(buyers[buyers.length - 1]).length - 5
-                        )}`}
-                        status="Active"
-                        id={tokenId}
-                        expiry={String(date).slice(4, 25)}
-                      />
-                    );
-                  })}
-            </div>
-          </div>
-          <div id="expired">
-            <div className="text-xl pl-12 mt-10 mb-5 flex  justify-evenly items-baseline">
-              <div className="w-44 font-medium">Expired Warranty</div>
-              <div className="w-5/6 h-px bg-black mr-20"></div>
-            </div>
-            <div className="text-xl flex justify-between border-2 border-black items-center bg-table-header mx-16 h-14 rounded-full my-2 px-7">
-              <span className="font-bold">Your Wallet</span>
-              <span className="font-bold">Status</span>
-              <span className="font-bold">Token Id</span>
-            </div>
+              <div className="flex flex-col justify-evenly">
+                {nfts.length &&
+                  nfts
+                    .filter((res) => res.status == 3)
+                    .map((obj) => {
+                      const {
+                        expiry,
+                        status,
+                        creationTime,
+                        productId,
+                        tokenId,
+                        buyers,
+                        imageURI,
+                      } = obj;
 
-            <div className="flex flex-col justify-evenly">
-              {nfts.length &&
-                nfts
-                  .filter((res) => res.status == 3)
-                  .map((obj) => {
-                    const {
-                      expiry,
-                      status,
-                      creationTime,
-                      productId,
-                      tokenId,
-                      buyers,
-                      imageURI,
-                    } = obj;
-
-                    return (
-                      <ExpiredWarranty
-                        img={imageURI}
-                        name={`${String(buyers[buyers.length - 1]).slice(
-                          0,
-                          5
-                        )}...${String(buyers[buyers.length - 1]).slice(
-                          String(buyers[buyers.length - 1]).length - 5
-                        )}`}
-                        status="Expired"
-                        id={tokenId}
-                      />
-                    );
-                  })}
+                      return (
+                        <ExpiredWarranty
+                          img={imageURI}
+                          name={`${String(buyers[buyers.length - 1]).slice(
+                            0,
+                            5
+                          )}...${String(buyers[buyers.length - 1]).slice(
+                            String(buyers[buyers.length - 1]).length - 5
+                          )}`}
+                          status="Expired"
+                          id={tokenId}
+                        />
+                      );
+                    })}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Seller;

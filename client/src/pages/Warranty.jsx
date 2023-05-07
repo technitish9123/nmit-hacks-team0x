@@ -27,11 +27,11 @@ function Warranty() {
 
   return (
     <>
-      <div className="w-screen h-screen bg-new-secondary flex">
+      <div className="w-screen h-screen  bg-hash-light flex text-Independence" >
         <Navbar />
-        <div className="w-full mt-16 h-full bg-new-secondary flex flex-col justify-center items-center">
-          <div className="w-1/2 h-4/6 flex justify-start items-center flex-col bg-secondary-3 rounded-lg border-2 border-black">
-            <div className="text-2xl mt-4 font-bold">
+        <div className="w-full mt-16 h-full  flex flex-col justify-center items-center">
+          <div className="w-2/5 h-3/5 flex justify-start items-center flex-col bg- rounded-lg border-2 border-light-gray-50 shadow-md">
+            <div className="text-2xl text-Independence mt-4 font-bold">
               Warranty #{warrantyID}
             </div>
             <div className="flex flex-col justify-evenly items-center w-full h-3/4">
@@ -71,18 +71,18 @@ function Warranty() {
               </a>
             )}
           </div>
-          <div className="w-1/2 flex flex-row justify-center items-center">
+          <div className="w-1/2 mt-10 flex flex-row justify-center items-center">
             {data && data.status == 2 && (
               <NavLink
                 to={`/resell/${data.tokenId}`}
-                className="w-1/3 h-10 flex justify-center items-center bg-new hover:bg-tertiary hover:text-black bottom-2 border-black rounded-xl text-white m-2"
+                className="w-1/3 h-10 flex justify-center items-center bg-United-Nations-Blue hover:bg-gray-400  bottom-2 border-black rounded-xl text-white m-2"
               >
                 Resell
               </NavLink>
             )}
             <NavLink
               to={`/history/${data.tokenId}`}
-              className="w-1/3 h-10 flex justify-center items-center bg-new hover:bg-tertiary hover:text-black bottom-2 border-black rounded-xl text-white m-2"
+              className="w-1/3 h-10 flex justify-center items-center bg-United-Nations-Blue hover:bg-gray-400  bottom-2 border-black rounded-xl text-white m-2"
             >
               History
             </NavLink>
