@@ -5,7 +5,7 @@ import { Web3Context } from './index';
 import Web3 from 'web3';
 import { sellerId } from './useContract/readContract';
 
-const contract_address= "0x6e3Ca33EC6d4134d3Ab6dD21e42db02E3dD57B0f"
+const CONTRACT_ADDRESS="0x4e70524af6621dd57555b47519907171136719A9"
 
 const Web3Provider = ({ children }) => {
   const [account, setAccount] = useState({
@@ -65,7 +65,7 @@ const Web3Provider = ({ children }) => {
 
     console.log(deployedNetwork)
     const instance = new web3.eth.Contract(
-      NFTWarranty.abi, contract_address
+      NFTWarranty.abi, CONTRACT_ADDRESS
      
     );
 
